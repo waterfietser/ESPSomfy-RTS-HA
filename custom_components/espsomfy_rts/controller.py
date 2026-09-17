@@ -318,7 +318,7 @@ class ESPSomfyController(DataUpdateCoordinator):
         """Ensure the group exists on Home Assistant."""
         uuid = f"{self.unique_id}_group{data['groupId']}"
         devices = dr.async_get(self.hass)
-        device = devices.async_get_device({(DOMAIN, self.unique_id)})
+        device = devices.async_get_device_by_identifier((DOMAIN, self.unique_id))
         entities = er.async_get(self.hass)
         for entity in er.async_entries_for_config_entry(entities, self.config_entry_id):
             if entity.unique_id == uuid:
@@ -347,7 +347,7 @@ class ESPSomfyController(DataUpdateCoordinator):
         uuid = f"{self.unique_id}_{data['shadeId']}"
 
         devices = dr.async_get(self.hass)
-        device = devices.async_get_device({(DOMAIN, self.unique_id)})
+        device = devices.async_get_device_by_identifier((DOMAIN, self.unique_id))
 
         entities = er.async_get(self.hass)
 
@@ -601,8 +601,8 @@ class ESPSomfyAPI:
         if cver != new_ver:
             # print(f"Version: {cver} to {new_ver}")
             dev_registry = dr.async_get(self.hass)
-            if dev := dev_registry.async_get_device(
-                identifiers={(DOMAIN, f"espsomfy_{self.server_id}")}
+            if dev := dev_registry.async_get_device_by_identifier(
+                (DOMAIN, f"espsomfy_{self.server_id}")
             ):
                 dev_registry.async_update_device(dev.id, sw_version=new_ver)
         self._config["version"] = new_ver
