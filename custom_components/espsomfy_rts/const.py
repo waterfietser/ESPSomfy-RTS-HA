@@ -4,7 +4,7 @@ from homeassistant.const import Platform
 
 VERSION = "v2.5.0"
 DOMAIN = "espsomfy_rts"
-MANUFACTURER = "rstrouse"
+MANUFACTURER = "ESPSomfy RTS"
 API_CONTROLLER = "/controller"
 API_SHADES = "/shades"
 API_GROUPS = "/groups"
