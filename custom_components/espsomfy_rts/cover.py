@@ -32,7 +32,7 @@ from .const import (
     EVT_SHADESTATE,
 )
 from .controller import ESPSomfyController
-from .entity import ESPSomfyEntity
+from .entity import ESPSomfyEntity, ESPSomfyShadeEntity
 
 SVC_OPEN_SHADE = "open_shade"
 SVC_CLOSE_SHADE = "close_shade"
@@ -342,7 +342,7 @@ class ESPSomfyGroup(CoverGroup, ESPSomfyEntity):
         await self._controller.api.group_command(cmd)
 
 
-class ESPSomfyShade(ESPSomfyEntity, CoverEntity):
+class ESPSomfyShade(ESPSomfyShadeEntity, CoverEntity):
     """A shade that is associated with a controller."""
 
     def __init__(self, controller: ESPSomfyController, data) -> None:

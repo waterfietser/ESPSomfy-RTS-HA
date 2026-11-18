@@ -22,6 +22,12 @@ Once installed, ESPSomfy-RTS-HA will automatically detect any radio devices on y
 # Updates
 After you have installed the plugin, you will be notified when there is a new version of the plugin available.  As of v2.2.1 of the ESPSomfy RTS firmware you can also update your devices remotely using the update entity included in the plugin.  It will notify you when there is a new version to install.
 
+## Shade devices after an upgrade
+
+Each shade has its own Home Assistant device with its cover, sensors, and switches where available. Groups and bridge controls such as reboot and backup remain on the controller device.
+
+Existing shade entities move to the new devices when the integration successfully loads the controller configuration. They keep their entity IDs and registry settings. Review automations that target the controller by device ID for shade actions, such as toggling a shade switch. Select the new shade device or target the existing entity directly.
+
 # Functionality
 Once configured you will be able to open, close, and set the position of your shades using home assistant.  The integration will monitor the position of the shade regardless of how it was opened or closed.  This includes opening or closing it using a Telis remote.  Shades can be added to your dashboards and automated with Home Assistant services through automations.
 
