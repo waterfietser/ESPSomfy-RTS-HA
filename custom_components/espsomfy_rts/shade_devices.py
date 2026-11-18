@@ -28,7 +28,7 @@ def async_relink_shade_entities(
     shades: list[dict],
     configuration_url: str,
 ) -> None:
-    """Move existing shade entities to their devices while retaining registry IDs."""
+    """Move existing shade entities and their area assignment to shade devices."""
     entities = er.async_get(hass)
     existing = {
         (entry.domain, entry.unique_id): entry
@@ -57,6 +57,16 @@ def async_relink_shade_entities(
             config_entry_id=config_entry_id,
             **shade_device_info(controller_id, shade, configuration_url),
         )
+        if device.area_id is None:
+            # The cover is listed first, followed by its sensors and switches.
+            area_id = next(
+                (entry.area_id for entry in entries if entry.area_id is not None), None
+            )
+            if area_id is not None:
+                devices.async_update_device(device.id, area_id=area_id)
+
         for entry in entries:
-            if entry.device_id != device.id:
-                entities.async_update_entity(entry.entity_id, device_id=device.id)
+            if entry.device_id != device.id or entry.area_id is not None:
+                entities.async_update_entity(
+                    entry.entity_id, device_id=device.id, area_id=None
+                )
