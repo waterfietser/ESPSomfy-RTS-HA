@@ -53,6 +53,7 @@ from .const import (
     EVT_WIFISTRENGTH,
     PLATFORMS,
 )
+from .shade_devices import async_relink_shade_entities
 
 _LOGGER = logging.getLogger(__name__)
 logging.getLogger("websocket").setLevel(logging.CRITICAL)
@@ -917,6 +918,13 @@ class ESPSomfyAPI:
                     )
                     if not self._configured:
                         _LOGGER.debug("ESPSomfy RTS Setting up entities")
+                        async_relink_shade_entities(
+                            self.hass,
+                            entry.entry_id,
+                            f"espsomfy_{self.server_id}",
+                            self.shades,
+                            self.get_config_url(),
+                        )
                         await self.hass.config_entries.async_forward_entry_setups(
                             entry, PLATFORMS
                         )
