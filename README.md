@@ -2,19 +2,28 @@
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration) 
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=rstrouse&repository=espsomfy-rts-ha)
+[![Open this repository in HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=waterfietser&repository=ESPSomfy-RTS-HA&category=integration)
 
 
 # ESPSomfy RTS-HA 
 Control up to 32 of your somfy shades in Home Assistant and set their position using an ESP32 and an inexpensive CC1101 tranceiver module.  You may also define up to 16 group shades that will allow you to move multiple covers at once.
 
+This fork is based on [rstrouse/ESPSomfy-RTS-HA](https://github.com/rstrouse/ESPSomfy-RTS-HA) and is distributed under the [Unlicense](LICENSE). Report issues with this fork in its [issue tracker](https://github.com/waterfietser/ESPSomfy-RTS-HA/issues).
+
 # Requirements
 This integration requires hardware that uses an ESP32 microcontroller and a CC1101 transceiver.  Setup for this controller can be found at the [ESPSomfy RTS hardware repositiory](https://github.com/rstrouse/ESPSomfy-RTS).  You must have one of these inexpensive radios configured for your shades.
 
 # Installation
-The easiest way to get going is to install this integration in Home Assistant using HACS as a [Custom Repository](https://hacs.xyz/docs/faq/custom_repositories/).  In the custom repository url use the following url `https://github.com/rstrouse/ESPSomfy-RTS-HA`.  
+In HACS, open **Custom repositories**, add `https://github.com/waterfietser/ESPSomfy-RTS-HA` as an **Integration**, and download the latest release. Restart Home Assistant after the download. See the [HACS custom repository instructions](https://www.hacs.xyz/docs/faq/custom_repositories/).
 
 As an alternative you may install it manually by copying the contents of the `custom_components` folder to the `config/custom_components` directory of your Home Assistant installation.
+
+## Switching from the upstream HACS repository
+
+1. Create a Home Assistant backup and add this fork as a custom repository in HACS.
+2. In **HACS**, open the installed `rstrouse/ESPSomfy-RTS-HA` repository and choose **Remove** to remove its downloaded files. Keep the existing ESPSomfy integration entry under **Settings → Devices & services**. If HACS asks to delete that entry or its devices and entities, cancel.
+3. Download the release from `waterfietser/ESPSomfy-RTS-HA` before restarting Home Assistant. Both repositories use `custom_components/espsomfy_rts`, so keep only the fork installed in HACS to avoid updates overwriting its files.
+4. Restart Home Assistant and verify that the existing integration loads and that the shades appear as separate devices.
 
 ## Setup
 Once installed, ESPSomfy-RTS-HA will automatically detect any radio devices on your local network. Just browse to Home Assistant's Settings &rarr; Devices & Services and your ESPSomfy-RTS device will show up as available to configure.
